@@ -1,10 +1,13 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-focusable/paper-focusable.html">
 
 <polymer-element name="life-piece" attributes="checked, coords">
     <template>
         <link rel="stylesheet" href="life-piece.css">
-        <div class="{{ checked ? 'checked' : ''}}"></div>
+        <paper-focusable isToggle active={{checked}} focused="{{isFocused}}">
+        </paper-focusable>
     </template>
+    <script src="../../bower_components/web-animations-js/web-animations.js"></script>
     <script>
         (function () {
             'use strict';
@@ -13,12 +16,13 @@
                 ready: function () {
                     var self = this;
                     
-                    this.shadowRoot.addEventListener('click', function () {
-                        self.checked = !self.checked;
+                    self.shadowRoot.addEventListener('click', function () {
                         self.fire('manually-changed');
                     });
+                    
                 },
                 checked: false,
+                isFocused: false,
                 coords: [0, 0]
             });
 

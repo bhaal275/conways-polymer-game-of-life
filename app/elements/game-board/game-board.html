@@ -1,4 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../life-piece/life-piece.html">
 
 <polymer-element name="game-board" attributes="size">
@@ -7,9 +9,10 @@
         <div layout vertical center>
             <table>
             </table>
-            <input type="range" min="5" max="20" value="{{size}}">
-            <button on-click="{{next}}" disabled?={{playing}}>Next</button>
-            <button on-click="{{autoplay}}">Autoplay</button>
+            <paper-slider min="5" max="20" value="{{size}}"></paper-slider>
+
+            <paper-button raised on-tap="{{next}}" disabled?={{playing}}>Next</paper-button>
+            <paper-button raised on-tap="{{autoplay}}">Autoplay</paper-button>
         </div>
     </template>
     <script src="gameOfLife.js"></script>
@@ -23,7 +26,7 @@
                 playing: false,
                 print: function () {
                     var self = this;
-                    
+
                     self.lifePieces = [];
                     var table = self.shadowRoot.querySelector('table');
                     table.innerHTML = '';
@@ -78,13 +81,13 @@
 
                     for(var y = 0; y < this.size; y++) {
                         for(var x = 0; x < this.size; x++) {
-                            this.lifePieces[y][x].checked = this.game.board[y][x];
+                            this.lifePieces[y][x].checked = !!this.game.board[y][x];
                         }
                     }
                 },
                 autoplay: function () {
                     var self = this;
-                    
+
                     if(this.playing) {
                         this.playing = false;
                         clearInterval(this.timerId);

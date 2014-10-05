@@ -6,12 +6,17 @@
   display: block;
 }
 
-div {
+paper-focusable {
+    display: block;
     width: 20px;
     height: 20px;
     background-color: white;
 }
 
-div.checked {
+paper-focusable[active] {
     background-color: black;
+}
+
+div {
+    background-color: white;
 }
