@@ -1,0 +1,15 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../game-board/game-board.html">
+
+<polymer-element name="game-of-life" attributes="size">
+    <template>
+    <link rel="stylesheet" href="game-of-life.css">
+        <div class="hero-unit">
+            <h3>Conway's Game of Life</h3>
+            <game-board></game-board>
+        </div>
+    </template>
+    <script>
+        Polymer('game-of-life', {});
+    </script>
+</polymer-element>
