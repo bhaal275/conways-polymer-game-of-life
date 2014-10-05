@@ -1,0 +1,85 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../life-piece/life-piece.html">
+
+<polymer-element name="game-board" attributes="size">
+    <template>
+        <link rel="stylesheet" href="game-board.css">
+        <div layout vertical center>
+            <table>
+            </table>
+            <input type="number" value="{{size}}">
+            <button on-click="{{next}}">Next</button>
+        </div>
+    </template>
+    <script src="gameOfLife.js"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            Polymer('game-board', {
+                size: 12,
+                started: false,
+                print: function () {
+                    var self = this;
+                    this.lifePieces = [];
+                    var table = this.shadowRoot.querySelector('table');
+                    table.innerHTML = '';
+
+                    var fragment = document.createDocumentFragment();
+
+                    for(var y = 0; y < this.size; y++) {
+                        var lifePiecesList = [];
+                        var tr = document.createElement('tr');
+
+                        for(var x = 0; x < this.size; x++) {
+                            var td = document.createElement('td');
+                            var lifePiece = document.createElement('life-piece');
+                            lifePiece.coords = [y, x];
+
+                            lifePiece.addEventListener('manually-changed', function () {
+                                self.started = false;
+                            });
+
+                            td.appendChild(lifePiece);
+                            tr.appendChild(td);
+                            lifePiecesList[x] = lifePiece;
+                        }
+
+                        fragment.appendChild(tr);
+                        this.lifePieces[y] = lifePiecesList;
+                    }
+
+                    table.appendChild(fragment);
+                },
+                ready: function () {
+                    this.print();
+                },
+                sizeChanged: function () {
+                    this.print();
+                },
+                gameBoard: function () {
+                    return this.lifePieces.map(function (arr) {
+                        return arr.map(function (lifePiece) {
+                            return +lifePiece.checked;
+                        });
+                    });
+                },
+                next: function () {
+                    if(!this.started) {
+                        this.game = new GameOfLife(this.gameBoard());
+                        this.started = true;
+                    }
+
+                    this.game.next();
+
+                    for(var y = 0; y < this.size; y++) {
+                        for(var x = 0; x < this.size; x++) {
+                            this.lifePieces[y][x].checked = this.game.board[y][x];
+                        }
+                    }
+                }
+            });
+
+        })();
+    </script>
+</polymer-element>

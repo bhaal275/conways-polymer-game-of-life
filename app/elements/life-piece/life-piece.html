@@ -1,0 +1,27 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<polymer-element name="life-piece" attributes="checked, coords">
+    <template>
+        <link rel="stylesheet" href="life-piece.css">
+        <div class="{{ checked ? 'checked' : ''}}"></div>
+    </template>
+    <script>
+        (function () {
+            'use strict';
+
+            Polymer('life-piece', {
+                ready: function () {
+                    var self = this;
+                    
+                    this.shadowRoot.addEventListener('click', function () {
+                        self.checked = !self.checked;
+                        self.fire('manually-changed');
+                    });
+                },
+                checked: false,
+                coords: [0, 0]
+            });
+
+        })();
+    </script>
+</polymer-element>
