@@ -16,7 +16,3 @@ paper-focusable {
 paper-focusable[active] {
     background-color: black;
 }
-
-div {
-    background-color: white;
-}

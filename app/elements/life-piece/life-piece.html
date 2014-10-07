@@ -20,8 +20,27 @@
                         self.fire('manually-changed');
                     });
                     
+                    self.paperFocusable = this.shadowRoot.querySelector('paper-focusable');
+                    self.bornAnim = new Animation(this.paperFocusable, [
+                        {backgroundColor: "#fff"},
+                        {backgroundColor: "#10DE51"},
+                        {backgroundColor: "#000"}
+                    ], 750);
+                    self.deathAnim = new Animation(this.paperFocusable, [
+                        {backgroundColor: "#000"},
+                        {backgroundColor: "#EB0C3C"},
+                        {backgroundColor: "#fff"}
+                    ], 750);
                 },
                 checked: false,
+                checkedChanged: function (oldValue, newValue) {
+                    if(newValue === true) {
+                        document.timeline.play(this.bornAnim);
+                    } else {
+                        document.timeline.play(this.deathAnim);
+                    }
+                                                         
+                },
                 isFocused: false,
                 coords: [0, 0]
             });
