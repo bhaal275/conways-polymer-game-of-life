@@ -25,12 +25,22 @@
                         {backgroundColor: "#fff"},
                         {backgroundColor: "#10DE51"},
                         {backgroundColor: "#000"}
-                    ], 750);
+                    ], {duration: 750, fill: 'forwards'});
                     self.deathAnim = new Animation(this.paperFocusable, [
                         {backgroundColor: "#000"},
                         {backgroundColor: "#EB0C3C"},
                         {backgroundColor: "#fff"}
-                    ], 750);
+                    ], {duration: 750, fill: 'forwards'});
+                    
+                    var scaleAnim = new Animation(this.paperFocusable, [
+                        {transform: "scale(0)"},
+                        {transform: "scale(1)"}
+                    ], 1500);
+                    
+                    var animSequence = new AnimationSequence([self.bornAnim, self.deathAnim]);
+                    
+                    var animationGroup = new AnimationGroup([scaleAnim, animSequence]);
+                    document.timeline.play(animationGroup);
                 },
                 checked: false,
                 checkedChanged: function (oldValue, newValue) {

@@ -93,6 +93,7 @@
                         clearInterval(this.timerId);
                     } else {
                         this.playing = true;
+                        self.next();
                         this.timerId = setInterval(function () { self.next(); }, 1000);   
                     }
                 }
