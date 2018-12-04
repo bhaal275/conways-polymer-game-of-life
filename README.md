@@ -1,6 +1,8 @@
 conways-polymer-game-of-life
 ============================
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/domderen/conways-polymer-game-of-life.svg)](https://greenkeeper.io/)
+
 Conway's Game of Life implemented using Polymer.
 
 Based on two custom elements:
